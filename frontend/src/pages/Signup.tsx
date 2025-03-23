@@ -1,37 +1,53 @@
+import axios from "axios";
 import React, { useRef, useState } from "react"
 import { useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../config";
 
 const Signup = () => {
 
-    // const usernameRef = useRef<HTMLInputElement>(null);
-    // const passwordRef = useRef<HTMLInputElement>(null);
-    // const navigate = useNavigate();
-    // const [loading, setLoading] = useState(false);
+    const usernameRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
+    const emailRef = useRef<HTMLInputElement>(null);
+    const collegeRef = useRef<HTMLInputElement>(null);
+    const locationRef = useRef<HTMLInputElement>(null);
+    const skillsRef = useRef<HTMLInputElement>(null);
+    
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
-    // async function signup() {
-    //     setLoading(true);
-    //     const username = usernameRef.current?.value;
-    //     const password = passwordRef.current?.value;
+    async function signup() {
+        setLoading(true);
+        const username = usernameRef.current?.value;
+        const email = emailRef.current?.value;
+        const password = passwordRef.current?.value;
+        const college = collegeRef.current?.value;
+        const location = locationRef.current?.value;
+        const skills = skillsRef.current?.value;
         
-    //     try {
-    //         const response = await axios.post(BACKEND_URL + "/api/v1/signup", {
-    //             username,
-    //             password
-    //         });
+        try {
+            const response = await axios.post(BACKEND_URL + "/api/v1/signup", {
+                username,
+                email,
+                password,
+                college,
+                location,
+                skills
+            });
 
-    //         if (response.data.token) {
-    //             localStorage.setItem("token", `Bearer ${response.data.token}`);
-    //             localStorage.setItem("username", username || "User");
-    //             navigate("/dashboard");
-    //         } else {
-    //             alert("Signup failed! No token received.");
-    //         }
-    //     } catch (error) {
-    //         alert("Error signing up!");
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // }
+            if (response.data.token) {
+                localStorage.setItem("token", `Bearer ${response.data.token}`);
+                localStorage.setItem("username", username || "User");
+                navigate("/home");
+            } else {
+                alert("Signup failed! No token received.");
+            }
+        } catch (error) {
+          console.log(error)
+            alert("Error signing up!");
+        } finally {
+            setLoading(false);
+        }
+    }
 
   return (
         <div className="">
@@ -46,32 +62,38 @@ const Signup = () => {
         <form className="space-y-4">
           <div className="flex space-x-2">
             <input
+             ref={usernameRef} 
               type="text"
               placeholder="Username"
               className="w-full p-2 border rounded-lg focus:outline-blue-500"
               />
           </div>
           <input
+           ref={emailRef} 
             type="email"
             placeholder="Email ID"
             className="w-full p-2 border rounded-lg focus:outline-blue-500"
             />
           <input
+           ref={passwordRef} 
             type="password"
             placeholder="Password"
             className="w-full p-2 border rounded-lg focus:outline-blue-500"
             />
                <input
+                ref={collegeRef} 
             type=""
             placeholder="college name"
             className="w-full p-2 border rounded-lg focus:outline-blue-500"
             />
                <input
+                ref={usernameRef} 
             type=""
             placeholder="location"
             className="w-full p-2 border rounded-lg focus:outline-blue-500"
             />
                <input
+                ref={skillsRef} 
             type=""
             placeholder="skills"
             className="w-full p-2 border rounded-lg focus:outline-blue-500"
@@ -79,6 +101,7 @@ const Signup = () => {
           <button
             type="submit"
             className="w-full bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700"
+            onClick={signup}
             >
             Sign Up
           </button>

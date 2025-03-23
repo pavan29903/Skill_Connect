@@ -20,7 +20,7 @@ app.use(cors({
 
 const signupSchema = zod.object({
     username:zod.string(),
-    email : zod.string().email(),
+    email : zod.string(),
     password : zod.string().min(6),
     college:zod.string(),
     location:zod.string(),

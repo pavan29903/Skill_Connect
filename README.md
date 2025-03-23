@@ -9,8 +9,8 @@ SkillConnect is a web-based platform designed to connect developers, designers, 
 - **Live Chat:** Join real-time chat rooms for various interests like AI, ML, Web Development, etc.
 
 ## Tech Stack
-- **Frontend:** React.js
-- **Backend:** Node.js, Express.js
+- **Frontend:** React.js + typescript
+- **Backend:** Node.js, Express.js + typescript
 - **Database:** MongoDB
 - **Authentication:** JWT
 - **Styling:** CSS (Custom)
